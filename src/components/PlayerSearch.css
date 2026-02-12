@@ -4,7 +4,7 @@
 
 .player-search h1 {
     margin-bottom: 1.5rem;
-    color: #333;
+    color: #8b8b8b;
 }
 
 .search-inputs {
@@ -51,10 +51,12 @@
     border: 1px solid #ddd;
     border-radius: 4px;
     background-color: #f9f9f9;
+    color: rgb(52, 52, 52);
 }
 
 .single-player h2 {
     margin: 0 0 0.5rem 0;
+    color: rgb(52, 52, 52);
 }
 
 .single-player button {
@@ -90,7 +92,7 @@
 .multiple-players button {
     padding: 0.4rem 1rem;
     background-color: #007bff;
-    color: white;
+    color: rgb(148, 87, 87);
     border: none;
     border-radius: 4px;
     cursor: pointer;
