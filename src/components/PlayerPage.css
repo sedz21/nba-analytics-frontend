@@ -46,6 +46,7 @@
 .tab-content {
     margin-top: 1rem;
     overflow-x: auto;
+    min-height: 420px;
 }
 
 .stats-table {

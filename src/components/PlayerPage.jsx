@@ -28,8 +28,8 @@ function PlayerPage({ selectedPlayer }) {
     if (!selectedPlayer) return null;
 
     // Fetch functions
-    const fetchBaseStats = async () => {
-        if (baseFetched) return; // already loaded
+    const fetchBaseStats = async (force = false) => {
+        if (baseFetched && !force) return; // already loaded
         setBaseLoading(true);
         setBaseError(null);
         try {
@@ -47,8 +47,8 @@ function PlayerPage({ selectedPlayer }) {
         }
     };
 
-    const fetchAdvancedStats = async () => {
-        if (advancedFetched) return;
+    const fetchAdvancedStats = async (force = false) => {
+        if (advancedFetched && !force) return;
         setAdvancedLoading(true);
         setAdvancedError(null);
         try {
@@ -66,8 +66,8 @@ function PlayerPage({ selectedPlayer }) {
         }
     };
 
-    const fetchPlayoffStats = async () => {
-        if (playoffFetched) return;
+    const fetchPlayoffStats = async (force = false) => {
+        if (playoffFetched && !force) return;
         setPlayoffLoading(true);
         setPlayoffError(null);
         try {
@@ -135,6 +135,10 @@ function PlayerPage({ selectedPlayer }) {
         setBaseError(null);
         setAdvancedError(null);
         setPlayoffError(null);
+
+        fetchBaseStats(true); // Optionally fetch base stats immediately for better UX
+        fetchAdvancedStats(true); // Optionally fetch advanced stats immediately for better UX
+        fetchPlayoffStats(true); // Optionally fetch playoff stats immediately for better UX
     }, [selectedPlayer]);
 
     return (
@@ -149,28 +153,30 @@ function PlayerPage({ selectedPlayer }) {
             <div className="tabs">
                 <button
                     onClick={() => handleTabClick("base")}
-                    className={'tab-button ${activeTab === "base" ? "active" : ""}'}
+                    className={`tab-button ${activeTab === "base" ? "active" : ""}`}
                 >
                     Base Career Stats
                 </button>
                 <button
                     onClick={() => handleTabClick("advanced")}
-                    className={'tab-button ${activeTab === "advanced" ? "active" : ""}'}
+                    className={`tab-button ${activeTab === "advanced" ? "active" : ""}`}
                 >
                     Advanced Career Stats
                 </button>
                 <button
                     onClick={() => handleTabClick("playoff")}
-                    className={'tab-button ${activeTab === "playoff" ? "active" : ""}'}
+                    className={`tab-button ${activeTab === "playoff" ? "active" : ""}`}
                 >
                     Playoff Career Stats
                 </button>
             </div>
 
             {/* Tab content */}
-            {activeTab === "base" && renderTable(baseStats, baseLoading, baseError)}
-            {activeTab === "advanced" && renderTable(advancedStats, advancedLoading, advancedError)}
-            {activeTab === "playoff" && renderTable(playoffStats, playoffLoading, playoffError)}
+            <div className="tab-content">
+                {activeTab === "base" && renderTable(baseStats, baseLoading, baseError)}
+                {activeTab === "advanced" && renderTable(advancedStats, advancedLoading, advancedError)}
+                {activeTab === "playoff" && renderTable(playoffStats, playoffLoading, playoffError)}
+            </div>
         </div>
     );
 }
