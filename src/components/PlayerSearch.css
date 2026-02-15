@@ -87,6 +87,7 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
+    color: rgb(52, 52, 52);
 }
 
 .multiple-players button {
